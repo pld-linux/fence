@@ -8,7 +8,7 @@ License:	GPL
 Group:		Applications/System
 Source0:	%{name}.tar.gz
 # Source0-md5:	f3f40096cf957c6825ae76cac153d698
-URL:		http://sources.redhat.com/cluster/
+URL:		http://sources.redhat.com/cluster/fence/
 BuildRequires:	awk
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
