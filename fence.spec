@@ -28,8 +28,8 @@ agents are used by fenced to interface with hardware devices (usually
 to shut off its path to shared storage or cycle its power source.)
 
 %description -l pl
-System Fence odpowiada za bariery I/O dla cz³onków klastra. K±¿dy z
-cz³oników mo¿e do³±czyæ do domy¶lnej domeny barier, po czym bêdzie
+System Fence odpowiada za bariery I/O dla cz³onków klastra. Ka¿dy z
+cz³onków mo¿e do³±czyæ do domy¶lnej domeny barier, po czym bêdzie
 odgrodzony je¶li zawiedzie nie opuszczaj±c czysto domeny barier.
 Modu³ blokuj±cy GFS-a lock_dlm nie pozwoli na podmontowanie GFS-a
 dopóki wêze³ nie do³±czy do domeny barier.
