@@ -1,6 +1,5 @@
-#
-# Conditional build:
 Summary:	I/O fencing system
+Summary(pl):	System barier I/O
 Name:		fence
 %define	snap	20040625
 Version:	0.0.0.%{snap}.1
@@ -16,9 +15,31 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_sbindir	/sbin
 
 %description
-The Fence system does I/O fencing of cluster members. Any member may join the default fence domain after which it will be fenced if it fails without leaving the fence domain cleanly. The lock_dlm GFS lock module will not permit GFS to be mounted until the node has joined a fence domain. 
+The Fence system does I/O fencing of cluster members. Any member may
+join the default fence domain after which it will be fenced if it
+fails without leaving the fence domain cleanly. The lock_dlm GFS lock
+module will not permit GFS to be mounted until the node has joined a
+fence domain. 
 
-The fence daemon, fenced, is usually started by running "fence_tool join". Once started, fenced joins the default fence domain and the node is subject to being fenced if it fails. A collection of fence agents are used by fenced to interface with hardware devices (usually to shut off its path to shared storage or cycle its power source.)
+The fence daemon, fenced, is usually started by running "fence_tool
+join". Once started, fenced joins the default fence domain and the
+node is subject to being fenced if it fails. A collection of fence
+agents are used by fenced to interface with hardware devices (usually
+to shut off its path to shared storage or cycle its power source.)
+
+%description -l pl
+System Fence odpowiada za bariery I/O dla cz³onków klastra. K±¿dy z
+cz³oników mo¿e do³±czyæ do domy¶lnej domeny barier, po czym bêdzie
+odgrodzony je¶li zawiedzie nie opuszczaj±c czysto domeny barier.
+Modu³ blokuj±cy GFS-a lock_dlm nie pozwoli na podmontowanie GFS-a
+dopóki wêze³ nie do³±czy do domeny barier.
+
+Demon fence, fenced, jest zwykle uruchamiany przez fence_tool join. Po
+uruchomieniu fenced do³±cza do domy¶lnej domeny barier, a wêze³ jest
+przedmiotem odgrodzenia je¶li zawiedzie. fenced wykorzystuje zbiór
+agentów fence do komunikacji z urz±dzeniami sprzêtowymi (zwykle do
+odcinania drogi do dzielonej pamiêci lub wy³±czania i w³±czania
+zasilania).
 
 %prep
 %setup -q -n %{name}
