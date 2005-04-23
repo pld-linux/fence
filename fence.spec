@@ -1,15 +1,15 @@
 Summary:	I/O fencing system
 Summary(pl):	System barier I/O
 Name:		fence
-%define	snap	20040625
-Version:	0.0.0.%{snap}.1
+Version:	1.26
 Release:	1
 License:	GPL
 Group:		Applications/System
-Source0:	%{name}.tar.gz
-# Source0-md5:	f3f40096cf957c6825ae76cac153d698
+Source0:	http://people.redhat.com/cfeist/cluster/tgz/%{name}-%{version}.tar.gz
+# Source0-md5:	aee9109313966a88d007e944f991c1e6
 URL:		http://sources.redhat.com/cluster/fence/
-BuildRequires:	awk
+BuildRequires:	cman-devel
+BuildRequires:	perl-base
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
@@ -42,12 +42,14 @@ odcinania drogi do dzielonej pamiêci lub wy³±czania i w³±czania
 zasilania).
 
 %prep
-%setup -q -n %{name}
+%setup -q
+
+%{__perl} -pi -e 's/-Wall/%{rpmcflags} -Wall/' make/defines.mk.input
+%{__perl} -pi -e 's/-O2 //' fence_node/Makefile fence_tool/Makefile fenced/Makefile
 
 %build
 ./configure \
 	--incdir=%{_includedir} \
-	--kernel_src=%{_kernelsrcdir} \
 	--libdir=%{_libdir} \
 	--mandir=%{_mandir} \
 	--prefix=%{_prefix} \
@@ -67,4 +69,5 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/*
+#%attr(754,root,root) /etc/rc.d/init.d/fenced
 %{_mandir}/man?/*
