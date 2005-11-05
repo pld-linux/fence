@@ -1,12 +1,13 @@
 Summary:	I/O fencing system
 Summary(pl):	System barier I/O
 Name:		fence
-Version:	1.26
+Version:	1.01.00
 Release:	1
+Epoch:		1
 License:	GPL
 Group:		Applications/System
-Source0:	http://people.redhat.com/cfeist/cluster/tgz/%{name}-%{version}.tar.gz
-# Source0-md5:	aee9109313966a88d007e944f991c1e6
+Source0:	ftp://sources.redhat.com/pub/cluster/releases/cluster-%{version}.tar.gz
+# Source0-md5:	e98551b02ee8ed46ae0ab8fca193d751
 URL:		http://sources.redhat.com/cluster/fence/
 BuildRequires:	cman-devel
 BuildRequires:	perl-base
@@ -42,12 +43,14 @@ odcinania drogi do dzielonej pamiêci lub wy³±czania i w³±czania
 zasilania).
 
 %prep
-%setup -q
+%setup -q -n cluster-%{version}
+cd %{name}
 
 %{__perl} -pi -e 's/-Wall/%{rpmcflags} -Wall/' make/defines.mk.input
 %{__perl} -pi -e 's/-O2 //' fence_node/Makefile fence_tool/Makefile fenced/Makefile
 
 %build
+cd %{name}
 ./configure \
 	--incdir=%{_includedir} \
 	--libdir=%{_libdir} \
@@ -59,6 +62,7 @@ zasilania).
 
 %install
 rm -rf $RPM_BUILD_ROOT
+cd %{name}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
