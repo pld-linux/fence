@@ -1,16 +1,17 @@
 Summary:	I/O fencing system
 Summary(pl):	System barier I/O
 Name:		fence
-Version:	1.01.00
+Version:	1.02.00
 Release:	1
 Epoch:		1
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://sources.redhat.com/pub/cluster/releases/cluster-%{version}.tar.gz
-# Source0-md5:	e98551b02ee8ed46ae0ab8fca193d751
+# Source0-md5:	131c34c8b66d8d7d74384839ed4091d0
 URL:		http://sources.redhat.com/cluster/fence/
 BuildRequires:	cman-devel
 BuildRequires:	perl-base
+BuildRequires:	rpm-pythonprov
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
@@ -20,7 +21,7 @@ The Fence system does I/O fencing of cluster members. Any member may
 join the default fence domain after which it will be fenced if it
 fails without leaving the fence domain cleanly. The lock_dlm GFS lock
 module will not permit GFS to be mounted until the node has joined a
-fence domain. 
+fence domain.
 
 The fence daemon, fenced, is usually started by running "fence_tool
 join". Once started, fenced joins the default fence domain and the
@@ -31,9 +32,9 @@ to shut off its path to shared storage or cycle its power source.)
 %description -l pl
 System Fence odpowiada za bariery I/O dla cz³onków klastra. Ka¿dy z
 cz³onków mo¿e do³±czyæ do domy¶lnej domeny barier, po czym bêdzie
-odgrodzony je¶li zawiedzie nie opuszczaj±c czysto domeny barier.
-Modu³ blokuj±cy GFS-a lock_dlm nie pozwoli na podmontowanie GFS-a
-dopóki wêze³ nie do³±czy do domeny barier.
+odgrodzony je¶li zawiedzie nie opuszczaj±c czysto domeny barier. Modu³
+blokuj±cy GFS-a lock_dlm nie pozwoli na podmontowanie GFS-a dopóki
+wêze³ nie do³±czy do domeny barier.
 
 Demon fence, fenced, jest zwykle uruchamiany przez fence_tool join. Po
 uruchomieniu fenced do³±cza do domy¶lnej domeny barier, a wêze³ jest
