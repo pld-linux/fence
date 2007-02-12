@@ -1,5 +1,5 @@
 Summary:	I/O fencing system
-Summary(pl):	System barier I/O
+Summary(pl.UTF-8):   System barier I/O
 Name:		fence
 Version:	1.03.00
 Release:	1
@@ -29,18 +29,18 @@ node is subject to being fenced if it fails. A collection of fence
 agents are used by fenced to interface with hardware devices (usually
 to shut off its path to shared storage or cycle its power source.)
 
-%description -l pl
-System Fence odpowiada za bariery I/O dla cz³onków klastra. Ka¿dy z
-cz³onków mo¿e do³±czyæ do domy¶lnej domeny barier, po czym bêdzie
-odgrodzony je¶li zawiedzie nie opuszczaj±c czysto domeny barier. Modu³
-blokuj±cy GFS-a lock_dlm nie pozwoli na podmontowanie GFS-a dopóki
-wêze³ nie do³±czy do domeny barier.
+%description -l pl.UTF-8
+System Fence odpowiada za bariery I/O dla czÅ‚onkÃ³w klastra. KaÅ¼dy z
+czÅ‚onkÃ³w moÅ¼e doÅ‚Ä…czyÄ‡ do domyÅ›lnej domeny barier, po czym bÄ™dzie
+odgrodzony jeÅ›li zawiedzie nie opuszczajÄ…c czysto domeny barier. ModuÅ‚
+blokujÄ…cy GFS-a lock_dlm nie pozwoli na podmontowanie GFS-a dopÃ³ki
+wÄ™zeÅ‚ nie doÅ‚Ä…czy do domeny barier.
 
 Demon fence, fenced, jest zwykle uruchamiany przez fence_tool join. Po
-uruchomieniu fenced do³±cza do domy¶lnej domeny barier, a wêze³ jest
-przedmiotem odgrodzenia je¶li zawiedzie. fenced wykorzystuje zbiór
-agentów fence do komunikacji z urz±dzeniami sprzêtowymi (zwykle do
-odcinania drogi do dzielonej pamiêci lub wy³±czania i w³±czania
+uruchomieniu fenced doÅ‚Ä…cza do domyÅ›lnej domeny barier, a wÄ™zeÅ‚ jest
+przedmiotem odgrodzenia jeÅ›li zawiedzie. fenced wykorzystuje zbiÃ³r
+agentÃ³w fence do komunikacji z urzÄ…dzeniami sprzÄ™towymi (zwykle do
+odcinania drogi do dzielonej pamiÄ™ci lub wyÅ‚Ä…czania i wÅ‚Ä…czania
 zasilania).
 
 %prep
