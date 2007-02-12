@@ -1,5 +1,5 @@
 Summary:	I/O fencing system
-Summary(pl.UTF-8):   System barier I/O
+Summary(pl.UTF-8):	System barier I/O
 Name:		fence
 Version:	1.03.00
 Release:	1
