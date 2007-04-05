@@ -8,8 +8,10 @@ License:	GPL
 Group:		Applications/System
 Source0:	ftp://sources.redhat.com/pub/cluster/releases/cluster-%{version}.tar.gz
 # Source0-md5:	2ef3f4ba9d3c87b50adfc9b406171085
+Patch0:		%{name}-antistatic.patch
 URL:		http://sources.redhat.com/cluster/fence/
 BuildRequires:	cman-devel
+BuildRequires:	ccs-devel
 BuildRequires:	perl-base
 BuildRequires:	rpm-pythonprov
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -45,6 +47,7 @@ zasilania).
 
 %prep
 %setup -q -n cluster-%{version}
+%patch0 -p1
 cd %{name}
 
 %{__perl} -pi -e 's/-Wall/%{rpmcflags} -Wall/' make/defines.mk.input
@@ -52,6 +55,8 @@ cd %{name}
 %{__perl} -pi -e 's@${top_srcdir}/../group/lib/libgroup.a@@'  fence/fence_tool/Makefile
 
 %build
+# libgroup.a is not packaged in group.spec, we must build it here
+%{__make} -C group/lib
 cd %{name}
 ./configure \
 	--incdir=%{_includedir} \
