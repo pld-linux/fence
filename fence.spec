@@ -1,13 +1,13 @@
 Summary:	I/O fencing system
 Summary(pl.UTF-8):	System barier I/O
 Name:		fence
-Version:	1.03.00
+Version:	2.00.00
 Release:	1
 Epoch:		1
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://sources.redhat.com/pub/cluster/releases/cluster-%{version}.tar.gz
-# Source0-md5:	8eea23df70d2007c4fb8c234cfea49cf
+# Source0-md5:	2ef3f4ba9d3c87b50adfc9b406171085
 URL:		http://sources.redhat.com/cluster/fence/
 BuildRequires:	cman-devel
 BuildRequires:	perl-base
@@ -49,6 +49,7 @@ cd %{name}
 
 %{__perl} -pi -e 's/-Wall/%{rpmcflags} -Wall/' make/defines.mk.input
 %{__perl} -pi -e 's/-O2 //' fence_node/Makefile fence_tool/Makefile fenced/Makefile
+%{__perl} -pi -e 's@${top_srcdir}/../group/lib/libgroup.a@@'  fence/fence_tool/Makefile
 
 %build
 cd %{name}
