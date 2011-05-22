@@ -1,19 +1,19 @@
 Summary:	I/O fencing system
 Summary(pl.UTF-8):	System barier I/O
 Name:		fence
-Version:	2.00.00
+Version:	2.03.10
 Release:	1
 Epoch:		1
-License:	GPL
+License:	GPL v2+
 Group:		Applications/System
 Source0:	ftp://sources.redhat.com/pub/cluster/releases/cluster-%{version}.tar.gz
-# Source0-md5:	2ef3f4ba9d3c87b50adfc9b406171085
-Patch0:		%{name}-antistatic.patch
+# Source0-md5:	379b560096e315d4b52e238a5c72ba4a
 URL:		http://sources.redhat.com/cluster/fence/
-BuildRequires:	cman-devel
-BuildRequires:	ccs-devel
+BuildRequires:	cman-devel >= 2.03.10
+BuildRequires:	ccs-devel >= 2.03.10
 BuildRequires:	perl-base
 BuildRequires:	rpm-pythonprov
+Requires:	cman-libs >= 2.03.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
@@ -47,31 +47,32 @@ zasilania).
 
 %prep
 %setup -q -n cluster-%{version}
-%patch0 -p1
-cd %{name}
-
-%{__perl} -pi -e 's/-Wall/%{rpmcflags} -Wall/' make/defines.mk.input
-%{__perl} -pi -e 's/-O2 //' fence_node/Makefile fence_tool/Makefile fenced/Makefile
-%{__perl} -pi -e 's@${top_srcdir}/../group/lib/libgroup.a@@'  fence/fence_tool/Makefile
 
 %build
-# libgroup.a is not packaged in group.spec, we must build it here
-%{__make} -C group/lib
-cd %{name}
 ./configure \
+	--cc="%{__cc}" \
+	--cflags="%{rpmcflags} -Wall" \
+	--ldflags="%{rpmldflags}" \
 	--incdir=%{_includedir} \
 	--libdir=%{_libdir} \
+	--libexecdir=%{_libdir} \
 	--mandir=%{_mandir} \
 	--prefix=%{_prefix} \
-	--sbindir=%{_sbindir}
-%{__make} \
-	CC="%{__cc}"
+	--sbindir=%{_sbindir} \
+	--without_gfs \
+	--without_gfs2 \
+	--without_gnbd \
+	--without_kernel_modules
+
+# libgroup.a is not packaged anywhere, so we must build it here
+%{__make} -C group/lib
+
+%{__make} -C %{name}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd %{name}
 
-%{__make} install \
+%{__make} -C %{name} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
@@ -79,6 +80,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_sbindir}/*
-#%attr(754,root,root) /etc/rc.d/init.d/fenced
-%{_mandir}/man?/*
+%attr(755,root,root) %{_sbindir}/fence_*
+%attr(755,root,root) %{_sbindir}/fenced
+# TODO: PLDify
+#%attr(754,root,root) /etc/rc.d/init.d/scsi_reserve
+%{_datadir}/fence
+#%{_datadir}/snmp/mibs/powernet369.mib
+%{_mandir}/man8/fence.8*
+%{_mandir}/man8/fence_*.8*
+%{_mandir}/man8/fenced.8*
