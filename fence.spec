@@ -1,19 +1,21 @@
+# NOTE: obsoleted by -fence subpackage from cluster.spec (3.x)
 Summary:	I/O fencing system
 Summary(pl.UTF-8):	System barier I/O
 Name:		fence
-Version:	2.03.10
+Version:	2.03.11
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	ftp://sources.redhat.com/pub/cluster/releases/cluster-%{version}.tar.gz
-# Source0-md5:	379b560096e315d4b52e238a5c72ba4a
+# Source0-md5:	712b9f583472d1de614641bc0f4a0aaf
+Patch0:		cluster-kernel.patch
 URL:		http://sources.redhat.com/cluster/fence/
-BuildRequires:	cman-devel >= 2.03.10
-BuildRequires:	ccs-devel >= 2.03.10
+BuildRequires:	cman-devel >= 2.03.11
+BuildRequires:	ccs-devel >= 2.03.11
 BuildRequires:	perl-base
 BuildRequires:	rpm-pythonprov
-Requires:	cman-libs >= 2.03.10
+Requires:	cman-libs >= 2.03.11
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
@@ -47,6 +49,7 @@ zasilania).
 
 %prep
 %setup -q -n cluster-%{version}
+%patch0 -p1
 
 %build
 ./configure \
