@@ -49,7 +49,7 @@ zasilania).
 
 %prep
 %setup -q -n cluster-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 ./configure \
